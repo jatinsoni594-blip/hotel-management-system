@@ -1,0 +1,221 @@
+{
+  "info": {
+    "_postman_id": "a9876543-210f-4e89-b123-hotelmanag01",
+    "name": "Grand Azure Hotel Management API",
+    "description": "Complete Postman collection for testing the Hotel Management System RESTful APIs (Rooms, Bookings, Guests, Analytics, Authentication).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Rooms",
+      "item": [
+        {
+          "name": "Get All Rooms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/rooms",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "rooms"]
+            }
+          }
+        },
+        {
+          "name": "Filter Rooms (Available & Deluxe)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/rooms?status=Available&category=Deluxe",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "rooms"],
+              "query": [
+                { "key": "status", "value": "Available" },
+                { "key": "category", "value": "Deluxe" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Room by Number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/rooms/101",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "rooms", "101"]
+            }
+          }
+        },
+        {
+          "name": "Create New Room",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomNumber\": \"501\",\n  \"type\": \"Skyline Panoramic Suite\",\n  \"category\": \"Suite\",\n  \"floor\": 5,\n  \"pricePerNight\": 8499,\n  \"capacity\": 3,\n  \"bedType\": \"King Bed\",\n  \"amenities\": [\"Private Balcony\", \"Panoramic City View\", \"Smart TV\", \"Mini Bar\", \"Complimentary Breakfast\"],\n  \"description\": \"Luxurious top-floor suite with uninterrupted skyline vistas and soaking tub.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/rooms",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "rooms"]
+            }
+          }
+        },
+        {
+          "name": "Update Room Status (Available / Occupied / Cleaning)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Cleaning\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/rooms/101/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "rooms", "101", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings & Reservations",
+      "item": [
+        {
+          "name": "Get All Bookings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/bookings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Create New Reservation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"guest\": {\n    \"name\": \"Rahul Verma\",\n    \"email\": \"rahul.verma@example.com\",\n    \"phone\": \"+91 98765 43210\",\n    \"idProof\": \"Aadhaar: 8821 4452 9011\"\n  },\n  \"roomNumber\": \"101\",\n  \"roomType\": \"Deluxe Ocean View\",\n  \"checkInDate\": \"2026-11-01\",\n  \"checkOutDate\": \"2026-11-05\",\n  \"numberOfGuests\": 2,\n  \"totalPrice\": 26875,\n  \"paymentMethod\": \"UPI (PhonePe)\",\n  \"specialRequests\": \"Quiet floor, sea view preferred\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/bookings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Check-In Guest",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Checked-In\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/bookings/BK-2026-8803/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "bookings", "BK-2026-8803", "status"]
+            }
+          }
+        },
+        {
+          "name": "Check-Out Guest",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Checked-Out\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/bookings/BK-2026-8801/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "bookings", "BK-2026-8801", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard & Guests",
+      "item": [
+        {
+          "name": "Get Dashboard Analytics & Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/stats",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Get All Guests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/guests",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "guests"]
+            }
+          }
+        },
+        {
+          "name": "Staff / Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123password\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
